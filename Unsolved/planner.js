@@ -3,7 +3,6 @@ $(document).ready(function () {
   var currentDate = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
   $("#currentDay").text(currentDate);
   // console.log(currentDate);
-  // date();
 
   // variable taskArea created for textarea tag
   var taskArea = $("<textarea>");
@@ -12,30 +11,48 @@ $(document).ready(function () {
   // taskArea.addClass("textarea present col-md-9");
   // taskArea.attr("name", "Test");
 
-  // variable saveBtn created for button tag
-  var saveBtnEl = $("<button>");
+  // // variable saveBtn created for button tag
+  // var saveBtnEl = $("<button>");
+  // saveBtnEl.addClass("fa fa-save");
 
-  //adding classes to save button
-  // saveBtnEl.addClass("saveBtn");
-  // saveBtnEl.attr("label", "save");
-
-  //display task area
+  //display time for task area
+  // var taskTime = moment("8 am", "h a").format("h, a");
+  // console.log(taskTime);
+  // timeDisplay.append(taskTime);
+  // var taskTime = moment.format("h, a");
 
   for (var i = 1; i < 14; i++) {
     var timeDisplay = $("<p>");
     timeDisplay.addClass("hour col-md-2");
 
     var taskArea = $("<textarea>");
-    taskArea.addClass("textarea description present col-md-9");
+    taskArea.addClass("textarea row present col-md-9");
     taskArea.attr("name", "Test");
 
     var saveBtnEl = $("<button>");
-    saveBtnEl.addClass("saveBtn saveBtn i:hover col-md-1");
-    saveBtnEl.attr("label", "save");
+    saveBtnEl.addClass("saveBtn col-md-1 fa fa-save");
+    saveBtnEl.attr("data-letter", "save");
 
-    $("#task").append(timeDisplay, taskArea, saveBtnEl);
+    $("#task").append(timeDisplay, taskArea, saveBtnEl, "<br>");
+
+    // var toDoTask = {
+    //   list: "",
+    // };
+
+    var time = ["8", "9", "10", "11", "12", "1", "2", "3", "4", "5", "6", "7"];
+    updateTime();
+
+    function updateTime() {
+      var currentDate = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+      for (var i = 0; i < time.length; i++) {
+        if (parseInt(time[i]) > currentDate) {
+          $("#" + time[i]).addClass("future");
+        } else if (parseInt(time[i]) < currentDate) {
+          $("#" + time[i]).addClass("past");
+        } else if (parseInt(time[i]) == currentDate) {
+          $("#" + time[i]).addClass("present");
+        }
+      }
+    }
   }
 });
-
-var timeDifference = m.startOf("day").format();
-console.log(timeDifference);
