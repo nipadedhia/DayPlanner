@@ -14,19 +14,23 @@ $(document).ready(function () {
 
   //Displays time slots
   for (var i = 1; i < 14; i++) {
-    var timeDisplay = $("<p>");
-    timeDisplay.addClass("hour col-md-2");
-    timeDisplay.append(startTime);
-    startTime = moment(startTime, "h a").add(1, "hour").format("h a");
-
+    var timeDisplay = $("<p>"); //<p> is created to display time slots
+    timeDisplay.addClass("hour col-md-2"); // added class to time slot
+    timeDisplay.append(startTime); // .append is used to add start time
     //variable declared for Task list
     var taskArea = $("<textarea>");
 
     //using moment.js rendering time zone color based on current time
+
+    //if time is same as current time then time block will have gray color
     if (moment(startTime, "h a").isBefore(moment(currentTime, "h a"))) {
       taskArea.addClass("row textarea past col-md-9");
+
+      //if time is same as current time then time block will have orange color
     } else if (moment(currentTime, "h a").isSame(moment(startTime, "h a"))) {
       taskArea.addClass("row textarea present col-md-9");
+
+      //if time is same as current time then time block will have Green color
     } else if (moment(startTime, "h a").isAfter(moment(currentTime, "h a"))) {
       taskArea.addClass("row textarea future col-md-9");
     }
@@ -39,5 +43,6 @@ $(document).ready(function () {
     saveBtnEl.attr("data-letter", "save");
 
     $("#task").append(timeDisplay, taskArea, saveBtnEl, "<br>");
+    startTime = moment(startTime, "h a").add(1, "hour").format("h a");
   }
 });
