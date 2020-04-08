@@ -2,7 +2,6 @@ var currentTime = moment().format("h a");
 var eventList;
 
 // display date and time on header
-
 $(document).ready(function () {
   var currentDate = moment().format("dddd, MMMM Do YYYY, h:mm a");
   $("#currentDay").text(currentDate);
@@ -22,7 +21,6 @@ $(document).ready(function () {
     var taskArea = $("<textarea>");
 
     //using moment.js rendering time zone color based on current time
-
     //if time is same as current time then time block will have gray color
     if (moment(startTime, "h a").isBefore(moment(currentTime, "h a"))) {
       taskArea.addClass("row textarea past col-md-9");
@@ -36,12 +34,14 @@ $(document).ready(function () {
       taskArea.addClass("row textarea future col-md-9");
     }
 
-    taskArea.attr("id", "Text_area" + i);
+    taskArea.attr("id", "text_area" + i); //creating unique id for text area like text_Area1, text_Area2
+
+    taskArea.val(localStorage.getItem("text_area" + i));
 
     //Save button and style of save button is fa fa-save (Google font awesome)
     var saveBtnEl = $("<button>");
     saveBtnEl.addClass("saveBtn col-md-1 fa fa-save");
-    saveBtnEl.attr("value", "area" + i);
+    saveBtnEl.attr("value", "area" + i); // creating unique id for button like area1, area2
 
     $("#task").append(timeDisplay, taskArea, saveBtnEl, "<br>");
     startTime = moment(startTime, "h a").add(1, "hour").format("h a");
@@ -49,13 +49,11 @@ $(document).ready(function () {
 
   $("button").on("click", function () {
     eventList = $(this).val(); //button id area1
-    var uniqueText = $("#Text_" + eventList).val();
-    localStorage.setItem("#text_" + eventList, uniqueName);
-    console.log(eventList);
-    console.log(uniqueText);
-    console.log("text_" + eventList);
+    var uniqueText = $("#text_" + eventList).val();
+    localStorage.setItem("text_" + eventList, uniqueText);
+    // console.log(eventList); // getting button id
+    // console.log(uniqueText);
+    // console.log("text_" + eventList); // getting text area id
+    // console.log(localStorage.getItem("#text_" + eventList));
   });
-
-  //Get data from local storage
-  //
 });
