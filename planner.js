@@ -1,4 +1,5 @@
 var currentTime = moment().format("h a");
+var eventList;
 
 // display date and time on header
 
@@ -35,14 +36,26 @@ $(document).ready(function () {
       taskArea.addClass("row textarea future col-md-9");
     }
 
-    taskArea.attr("name", "Test");
+    taskArea.attr("id", "Text_area" + i);
 
     //Save button and style of save button is fa fa-save (Google font awesome)
     var saveBtnEl = $("<button>");
     saveBtnEl.addClass("saveBtn col-md-1 fa fa-save");
-    saveBtnEl.attr("data-letter", "save");
+    saveBtnEl.attr("value", "area" + i);
 
     $("#task").append(timeDisplay, taskArea, saveBtnEl, "<br>");
     startTime = moment(startTime, "h a").add(1, "hour").format("h a");
   }
+
+  $("button").on("click", function () {
+    eventList = $(this).val(); //button id area1
+    var uniqueText = $("#Text_" + eventList).val();
+    localStorage.setItem("#text_" + eventList, uniqueName);
+    console.log(eventList);
+    console.log(uniqueText);
+    console.log("text_" + eventList);
+  });
+
+  //Get data from local storage
+  //
 });
